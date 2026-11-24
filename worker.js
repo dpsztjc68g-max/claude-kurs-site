@@ -138,6 +138,8 @@ async function onMessage(c, msg) {
   const text = msg.text || "";
   if (text.startsWith("/id")) return send(c, chat.id, `Бұл чаттың ID-і: <code>${chat.id}</code>`);
   if (chat.type !== "private") return;
+  const fwd = (msg.forward_origin && msg.forward_origin.chat) || msg.forward_from_chat;
+  if (fwd) return send(c, chat.id, `«${fwd.title || ""}» ID-і: <code>${fwd.id}</code>`);
 
   if (text.startsWith("/start")) return send(c, chat.id, startText(c), payKb());
 
