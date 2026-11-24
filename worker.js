@@ -174,7 +174,7 @@ export default {
       const r = await tg(c, "setWebhook", {
         url: `${url.origin}/webhook`,
         secret_token: secret,
-        allowed_updates: ["message", "callback_query"],
+        allowed_updates: ["message", "callback_query", "channel_post"],
       });
       const me = await tg(c, "getMe", {});
       const ok = r.ok ? "✅ Бот қосылды!" : "❌ Қате: " + (r.description || "");
@@ -187,6 +187,7 @@ export default {
       try {
         if (upd.callback_query) await onCallback(c, upd.callback_query);
         else if (upd.message) await onMessage(c, upd.message);
+        else if (upd.channel_post && (upd.channel_post.text || "").startsWith("/id")) await send(c, upd.channel_post.chat.id, `Бұл каналдың ID-і: <code>${upd.channel_post.chat.id}</code>`);
       } catch (e) {
         console.log("Қате:", e && e.stack);
       }
