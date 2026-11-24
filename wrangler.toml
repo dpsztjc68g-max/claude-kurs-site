@@ -7,3 +7,4 @@ keep_vars = true
 KASPI_PHONE = "8 705 184 15 56"
 KASPI_NAME = "Аякоз А."
 MANAGER = "@Damesh2001"
+ADMIN_CHAT_ID = "1045900755"
